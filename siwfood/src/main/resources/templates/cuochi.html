@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cuochi</title>
+</head>
+<body>
+    <h1>Lista dei Cuochi</h1>
+    <ul>
+        <li th:each="cuoco : ${cuochi}">
+            
+            <a th:href="@{/cuochi/{id}(id=${cuoco.id})}">
+                <span th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}"></span>
+            </a>
+            <span th:text="${cuoco.dataNascita}"></span>
+        </li>
+    </ul>
+    
+    <div>
+        <a href="/cuochi/search">Vai alla pagina di ricerca dei cuochi</a>
+    </div>
+
+    <div>
+        <a href="/admin/addCuoco">Vai alla pagina per l'aggiunta di un cuoco</a>
+    </div>
+
+    <div>
+        <a href="/">torna all'home page</a>
+    </div>
+</body>
+</html>

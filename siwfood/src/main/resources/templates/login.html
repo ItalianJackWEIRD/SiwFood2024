@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Real Estate Roma</title>
+</head>
+
+<body>
+    <div>
+        <div>
+            <a href="/"><img src="/src/main/resources/static/images/logo-rer.png" alt=""></a>
+        </div>
+
+        <h1>Login</h1>
+
+        <form th:action="@{/login}" id="login" method="POST">
+
+            <div>
+                <label for="username" th:text="'Username'"></label>
+                <input name="username" id="username" type="text" required>
+            </div>
+            <div>
+                <label for="password" th:text="'Password'"></label>
+                <input name="password" id="password" type="password" required>
+            </div>
+            <div>
+                <span th:if="${param.error != null}" th:text="'Username o password errati'"></span>
+            </div>
+            <div>
+                <button type="submit" th:text="'Login'"></button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

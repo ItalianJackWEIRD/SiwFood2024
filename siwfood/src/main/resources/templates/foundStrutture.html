@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Strutture Trovate</title>
+	<link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<div>
+		<a href="/"><img src="/images/logo-rer.png" width="50%" /></a>
+	</div>
+	<h1>Strutture Trovate</h1>
+	<ul>
+		<div th:if="${strutture}">
+			<li th:each="struttura : ${strutture}">
+				<p>
+					Nome: <span th:text="${struttura.name}"></span>
+				</p>
+				<p>
+					Città: <span th:text="${struttura.city}"></span>
+				</p>
+				<p>
+					<a th:href="@{/struttura/{id}(id=${struttura.id})}">Struttura</a>
+				</p>
+				<p>
+					<img width="15%" th:src=${struttura.urlImage} />
+				</p>
+			</li>
+		</div>
+		<div th:unless="${strutture}">
+			<li>Nessuna struttura trovata</li>
+		</div>
+	</ul>
+</body>
+
+</html>

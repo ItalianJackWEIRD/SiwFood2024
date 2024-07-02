@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Form per la ricerca dei cuochi</title>
+</head>
+<body>
+    
+    <h1>Cerca in base al nome</h1>
+    
+    <form action="#" th:action="@{/cuochi/byNome}" method="post">
+        <div>
+            <label for="nome">Nome:</label>
+            <input type="text" name="nome" th:value="${nome}" />
+        </div>
+        
+        <div>
+            <button type="submit">Cerca</button>
+        </div>
+    
+    </form>
+    
+    <h1>Cerca in base all'anno di nascita</h1>
+    
+    <form action="#" th:action="@{/cuochi/byYear}" method="post">
+        
+        <div>
+            <label for="dataNascita">Data di Nascita:</label>
+            <input type="number" name="year" th:value="${year}" />
+        </div>
+        
+        <div>
+            <button type="submit">Cerca</button>
+        </div>
+    
+    </form>
+    
+    <a th:href="@{/cuochi}">Torna alla lista dei cuochi</a>
+</body>
+</html>

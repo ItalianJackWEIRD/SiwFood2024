@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<head>
+    <title>FORM PER LA MODIFICA DI UNA RICETTA</title>
+</head>
+
+<body>
+    <h1>Modifica i dettagli della Ricetta</h1>
+
+    <div>
+        <h2 th:text="${ricetta.nome}">Nome della Ricetta</h2>
+        <p th:text="${ricetta.descrizione}">Descrizione della Ricetta</p>
+    </div>
+
+    <div>
+        <h3>Ingredienti</h3>
+        <ul>
+            <li th:each="ingrediente : ${ricetta.ingredienti}">
+                <span th:text="${ingrediente.nome}">Nome Ingrediente</span>: 
+                <span th:text="${ingrediente.quantita}">Quantità Ingrediente</span>
+            </li>
+        </ul>
+    </div>
+
+    <form action="#" th:action="@{/ricette/update/{id}(id=${ricetta.id})}" th:object="${ingredienti}" method="post">
+
+        <div>
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" th:field="*{nome}">
+        </div>
+
+        <div>
+            <label for="descrizione">Descrizione:</label>
+            <input type="text" id="descrizione" th:field="*{descrizione}">
+        </div>
+
+        <div id="ingredienti">
+            <h3>Aggiungi Nuovi Ingredienti</h3>
+            <div>
+                <label for="nuovoIngredienteNome">Nome Ingrediente:</label>
+                <input type="text" id="nuovoIngredienteNome" name="nuovoIngredienteNome" placeholder="Nome Ingrediente">
+            </div>
+            <div>
+                <label for="nuovoIngredienteQuantita">Quantità Ingrediente:</label>
+                <input type="text" id="nuovoIngredienteQuantita" name="nuovoIngredienteQuantita" placeholder="Quantità Ingrediente">
+            </div>
+            <button type="button" onclick="aggiungiIngrediente()">Aggiungi Ingrediente</button>
+        </div>
+
+        <script>
+            function aggiungiIngrediente() {
+                var nome = document.getElementById('nuovoIngredienteNome').value;
+                var quantita = document.getElementById('nuovoIngredienteQuantita').value;
+    
+                if (nome && quantita) {
+                    var lista = document.createElement('li');
+                    lista.innerText = nome + ": " + quantita;
+    
+                    document.querySelector('ul').appendChild(lista);
+    
+                    var inputNome = document.createElement('input');
+                    inputNome.type = 'hidden';
+                    inputNome.name = 'ingredienti[][nome]';
+                    inputNome.value = nome;
+    
+                    var inputQuantita = document.createElement('input');
+                    inputQuantita.type = 'hidden';
+                    inputQuantita.name = 'ingredienti[][quantita]';
+                    inputQuantita.value = quantita;
+    
+                    document.querySelector('form').appendChild(inputNome);
+                    document.querySelector('form').appendChild(inputQuantita);
+    
+                    document.getElementById('nuovoIngredienteNome').value = '';
+                    document.getElementById('nuovoIngredienteQuantita').value = '';
+                }
+            }
+        </script>
+
+        <div>
+            <button type="submit">FINE</button>
+        </div>
+
+    </form>
+
+</body>
+
+</html>

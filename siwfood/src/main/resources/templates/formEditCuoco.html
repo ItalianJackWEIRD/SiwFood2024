@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<head>
+    <title>Modifica Cuoco</title>
+</head>
+<body>
+    <h1>Modifica Cuoco</h1>
+    <form action="#" th:action="@{/admin/editCuoco/{id}(id=${cuoco.id})}" th:object="${cuoco}" method="post">
+        <div>
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" th:field="*{nome}" />
+        </div>
+        <div>
+            <label for="cognome">Cognome:</label>
+            <input type="text" id="cognome" th:field="*{cognome}" />
+        </div>
+        <div>
+            <label for="dataNascita">Data di Nascita:</label>
+            <input type="date" id="dataNascita" th:field="*{dataNascita}" />
+        </div>
+        <div>
+            <label for="urlImage">urlImage:</label>
+            <input type="text" id="urlImage" th:field="*{urlImage}" />
+        </div>
+        <div>
+            <button type="submit">Salva</button>
+        </div>
+    </form>
+    <a th:href="@{/cuochi}">Torna alla lista dei cuochi</a>
+</body>
+</html>
