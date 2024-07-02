@@ -1,6 +1,5 @@
 package it.uniroma3.siw.siwfood.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,25 +13,21 @@ import it.uniroma3.siw.siwfood.service.RicettaService;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 
-
-
 @Controller
 public class RicettaController {
-    
+
     @Autowired
     private RicettaService ricettaService;
 
     @Autowired
     private CuocoService cuocoService;
 
-
-    /*RICERCHE*/
-    @GetMapping("/ricette")   
+    @GetMapping("/ricette")
     public String getRicette(Model model) {
         model.addAttribute("ricette", this.ricettaService.findAll());
         return "ricette.html";
     }
-    
+
     @GetMapping("/ricette/{id}")
     public String getRicetta(@PathVariable("id") Long id, Model model) {
         model.addAttribute("ricetta", this.ricettaService.findById(id));
@@ -41,7 +36,7 @@ public class RicettaController {
 
     @GetMapping("/ricette/search")
     public String getFormSearchRicetta() {
-        return "forms/formSearchRicetta.html";
+        return "formSearchRicetta.html";
     }
 
     @PostMapping("/ricette/byNome")
@@ -49,7 +44,7 @@ public class RicettaController {
         model.addAttribute("ricette", this.ricettaService.findByNome(nome));
         return "ricette.html";
     }
- 
+
     @PostMapping("/ricette/byIngrediente")
     public String postRicetteByIngrediente(@RequestParam String ingr, Model model) {
         model.addAttribute("ricette", this.ricettaService.findByIngredienteNome(ingr));
@@ -57,12 +52,11 @@ public class RicettaController {
     }
 
     @GetMapping("/admin/addRicetta/{cuoco_id}")
-    public String getFormNewRicetta(@PathVariable("cuoco_id") Long id,Model model) {
+    public String getFormNewRicetta(@PathVariable("cuoco_id") Long id, Model model) {
         model.addAttribute("cuoco", this.cuocoService.findById(id));
         model.addAttribute("ricetta", new Ricetta());
-        return "forms/formNewRicetta.html";
+        return "formNewRicetta.html";
     }
-
 
     @PostMapping("/admin/addRicetta/{cuoco_id}")
     public String postNewRicetta(@PathVariable("cuoco_id") Long id, @ModelAttribute Ricetta ricetta) {
@@ -74,7 +68,7 @@ public class RicettaController {
     @GetMapping("/admin/editRicetta/{id}")
     public String getFormEditRicetta(@PathVariable("id") Long id, Model model) {
         model.addAttribute("ricetta", this.ricettaService.findById(id));
-        return "forms/formEditRicetta.html";
+        return "formEditRicetta.html";
     }
 
     @PostMapping("/admin/editRicetta/{id}")
@@ -84,12 +78,10 @@ public class RicettaController {
         return "redirect:/ricette/" + ricetta.getId();
     }
 
-
     @GetMapping("/admin/deleteRicetta/{id}")
     public String deleteRicetteById(@PathVariable("id") Long id) {
         this.ricettaService.deleteRicetta(id);
         return "redirect:/ricette";
     }
-
 
 }

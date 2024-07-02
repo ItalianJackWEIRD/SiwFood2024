@@ -41,7 +41,7 @@ public class CuocoController {
 
     @GetMapping("/cuochi/search")
     public String getFormSearchCuoco() {
-        return "forms/formSearchCuoco.html";
+        return "formSearchCuoco.html";
     }
 
     @PostMapping("/cuochi/byNome")
@@ -53,7 +53,7 @@ public class CuocoController {
     @GetMapping("/admin/addCuoco")
     public String getFormNewCuoco(Model model) {
         model.addAttribute("cuoco", new Cuoco());
-        return "forms/formNewCuoco.html";
+        return "formNewCuoco.html";
     }
 
     @PostMapping("/admin/addCuoco")
@@ -77,7 +77,7 @@ public class CuocoController {
     @GetMapping("/admin/editCuoco/{id}")
     public String getFormEditCuoco(@PathVariable("id") Long id, Model model) {
         model.addAttribute("cuoco", this.cuocoService.findById(id));
-        return "forms/formEditCuoco.html";
+        return "formEditCuoco.html";
     }
 
 

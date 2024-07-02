@@ -19,21 +19,6 @@
     
     </form>
     
-    <h1>Cerca in base all'anno di nascita</h1>
-    
-    <form action="#" th:action="@{/cuochi/byYear}" method="post">
-        
-        <div>
-            <label for="dataNascita">Data di Nascita:</label>
-            <input type="number" name="year" th:value="${year}" />
-        </div>
-        
-        <div>
-            <button type="submit">Cerca</button>
-        </div>
-    
-    </form>
-    
     <a th:href="@{/cuochi}">Torna alla lista dei cuochi</a>
 </body>
 </html>
