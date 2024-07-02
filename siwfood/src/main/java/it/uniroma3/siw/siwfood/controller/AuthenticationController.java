@@ -13,11 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import it.uniroma3.siw.siwfood.model.Host;
+
 import it.uniroma3.siw.siwfood.model.auth.Credential;
 import it.uniroma3.siw.siwfood.model.auth.User;
 import it.uniroma3.siw.siwfood.service.CredentialService;
-import it.uniroma3.siw.siwfood.service.HostService;
 import it.uniroma3.siw.siwfood.service.UserService;
 
 @Controller
@@ -29,16 +28,10 @@ public class AuthenticationController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private HostService hostService;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @GetMapping(value = "/register")
     public String showRegisterForm(Model model) {
         model.addAttribute("user", new User());
-        model.addAttribute("host", new Host());
         model.addAttribute("credentials", new Credential());
         return "register.html";
     }
@@ -71,20 +64,14 @@ public class AuthenticationController {
 
             @ModelAttribute("credential") Credential credentials,
             BindingResult credentialsBindingResult,
-            Model model,
-
-            @ModelAttribute("host") Host host) {
+            Model model) {
 
         if (!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
             userService.save(user);
             credentials.setUser(user);
-            host.setName(user.getName());
-            host.setSurname(user.getSurname());
-            host.setUrlImage(user.getUrlImage());
-            hostService.save(host);
             // credentials.setPassword(passwordEncoder.encode(credentials.getPassword()));
             //
-            credentials.setRuolo(Credential.UTENTE_HOST);
+            credentials.setRuolo(Credential.UTENTE_LOGGATO);
             credentialService.save(credentials);
             model.addAttribute("user", user);
 

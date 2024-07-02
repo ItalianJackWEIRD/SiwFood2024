@@ -65,14 +65,6 @@ public class User {
 
     private String email;
 
-    public User(String nome, String cognome, String email, String luogoDiNascita, LocalDate dataNascita) {
-        this.name = nome;
-        this.surname = cognome;
-        this.email = email;
-        this.luogoDiNascita = luogoDiNascita;
-        this.dataDiNascita = dataNascita;
-    }
-
     public Long getId() {
         return id;
     }

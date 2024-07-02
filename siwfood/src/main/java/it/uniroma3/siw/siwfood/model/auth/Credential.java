@@ -13,7 +13,7 @@ import jakarta.persistence.OneToOne;
 public class Credential {
 
     public static final String UTENTE_GENERICO = "GENERIC";
-    public static final String UTENTE_HOST = "HOST";
+    public static final String UTENTE_LOGGATO = "LOG";
     public static final String ADMIN = "ADMIN";
 
     @Id

@@ -12,9 +12,6 @@ public interface CuocoRepository extends CrudRepository<Cuoco, Long> {
     // ordinati rispetto al cognome
     public Iterable<Cuoco> findByNomeOrderByCognomeAsc(String nome);
 
-    // tutti i cuochi nati dopo una certa data
-    public Iterable<Cuoco> findByDataNascitaAfter(LocalDate dataNascita);
-
     public boolean existsByNomeAndCognome(String nome, String cognome);
 
 }
