@@ -1,11 +1,13 @@
 package it.uniroma3.siw.siwfood.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import it.uniroma3.siw.siwfood.model.auth.User;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -21,7 +23,7 @@ public class Cuoco {
 
     /* ATTRIBUTI CUOCO */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
@@ -34,7 +36,7 @@ public class Cuoco {
     private LocalDate dataNascita;
 
     @ElementCollection
-    private List<Images> immagini;
+    private List<Images> immagini = new ArrayList<Images>();
 
     @OneToMany(mappedBy = "cuoco", cascade = CascadeType.ALL)
     private List<Ricetta> ricette;
@@ -43,6 +45,12 @@ public class Cuoco {
     /* COSTRUTTORI */
     public Cuoco() {
 
+    }
+
+    public Cuoco(User user) {
+        this.nome = user.getName();
+        this.cognome = user.getSurname();
+        this.dataNascita = user.getDataDiNascita();
     }
 
     public Cuoco(String nome, String cognome, List<Images> immagini, LocalDate dataNascita, List<Ricetta> ricette) {
@@ -79,6 +87,10 @@ public class Cuoco {
     /* FINE EQUALS & HASHCODE */
 
     /* METODI PER LE IMMAGINI */
+    public boolean hasImages() {
+        return !this.immagini.isEmpty();
+    }
+
     public Images getFirstImmagine() {
         return this.immagini.get(0);
     }

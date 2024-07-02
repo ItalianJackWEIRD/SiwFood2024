@@ -1,9 +1,9 @@
 package it.uniroma3.siw.siwfood.model;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.ElementCollection;
@@ -21,7 +21,7 @@ public class Ricetta {
 
     /* ATTRIBUTI */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
@@ -30,10 +30,10 @@ public class Ricetta {
     private String descrizione;
 
     @ElementCollection
-    private List<Images> immagini;
+    private List<Images> immagini = new ArrayList<Images>();;
 
     @OneToMany(mappedBy = "ricetta", cascade = CascadeType.ALL)
-    private Set<Ingrediente> ingredienti = new HashSet<>();
+    private List<Ingrediente> ingredienti = new ArrayList<Ingrediente>();
 
     @ManyToOne
     @JoinColumn(name = "cuoco_id")
@@ -45,7 +45,7 @@ public class Ricetta {
 
     }
 
-    public Ricetta(String nome, String descr, List<Images> immagini, Set<Ingrediente> ingr, Cuoco cuoco) {
+    public Ricetta(String nome, String descr, List<Images> immagini, List<Ingrediente> ingr, Cuoco cuoco) {
         this.nome = nome;
         this.descrizione = descr;
         this.immagini = immagini;
@@ -102,12 +102,12 @@ public class Ricetta {
     }
     /* METODI PER LE IMMAGINI */
 
-    /* GETTER & SETTER */
+    /* GETTER & ListTER */
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void ListId(Long id) {
         this.id = id;
     }
 
@@ -115,7 +115,7 @@ public class Ricetta {
         return nome;
     }
 
-    public void setNome(String titolo) {
+    public void ListNome(String titolo) {
         this.nome = titolo;
     }
 
@@ -123,15 +123,15 @@ public class Ricetta {
         return immagini;
     }
 
-    public void setImmagini(List<Images> immagini) {
+    public void ListImmagini(List<Images> immagini) {
         this.immagini = immagini;
     }
 
-    public Set<Ingrediente> getIngredienti() {
+    public List<Ingrediente> getIngredienti() {
         return this.ingredienti;
     }
 
-    public void setIngredienti(Set<Ingrediente> ingredienti) {
+    public void ListIngredienti(List<Ingrediente> ingredienti) {
         this.ingredienti = ingredienti;
     }
 
@@ -139,7 +139,7 @@ public class Ricetta {
         return cuoco;
     }
 
-    public void setCuoco(Cuoco autore) {
+    public void ListCuoco(Cuoco autore) {
         this.cuoco = autore;
     }
 
@@ -147,9 +147,9 @@ public class Ricetta {
         return descrizione;
     }
 
-    public void setDescrizione(String descrizione) {
+    public void ListDescrizione(String descrizione) {
         this.descrizione = descrizione;
     }
-    /* FINE GETTER & SETTER */
+    /* FINE GETTER & ListTER */
 
 }

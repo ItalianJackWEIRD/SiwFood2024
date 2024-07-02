@@ -80,10 +80,25 @@ public class CuocoController {
         return "formEditCuoco.html";
     }
 
-
     @PostMapping("/admin/editCuoco/{id}")
-    public String updateCuoco(@PathVariable("id") Long id, @ModelAttribute Cuoco cuoco) {
+    public String updateCuoco(@PathVariable("id") Long id, @ModelAttribute Cuoco cuoco,
+            @RequestParam("immagine") MultipartFile immagine)
+            throws IOException {
         cuoco.setId(id);
+
+        if (!immagine.isEmpty()) {
+            Images img = new Images();
+            img.setFileName(immagine.getOriginalFilename());
+            img.setImageData(immagine.getBytes());
+            if (cuoco.getImmagini().isEmpty()) {
+                cuoco.getImmagini().add(img);
+            } else {
+                cuoco.getImmagini().clear();
+                cuoco.getImmagini().add(img);
+            }
+            immagineService.save(img);
+        }
+
         this.cuocoService.saveCuoco(cuoco);
         return "redirect:/cuochi/" + cuoco.getId();
     }
@@ -93,6 +108,5 @@ public class CuocoController {
         cuocoService.deleteCuoco(id);
         return "redirect:/cuochi";
     }
-
 
 }
