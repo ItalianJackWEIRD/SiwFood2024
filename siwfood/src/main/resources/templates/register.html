@@ -34,10 +34,6 @@
                 <span th:if="${#fields.hasErrors('user.surname')}" th:errors="${user.surname}"
                     th:style="'color:red'"></span>
             </div>
-            <label th:text="'Url Immagine'"></label>
-            <input type="text" required th:field="${user.urlImage}">
-            <span th:if="${#fields.hasErrors('user.urlImage')}" th:errors="${user.urlImage}"
-                th:style="'color:red'"></span>
             <div>
                 <button type="submit" th:text="'Registrati'"></button>
             </div>
