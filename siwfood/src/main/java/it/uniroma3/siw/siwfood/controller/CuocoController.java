@@ -9,17 +9,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import it.uniroma3.siw.siwfood.model.Cuoco;
 import it.uniroma3.siw.siwfood.model.Images;
+import it.uniroma3.siw.siwfood.model.Ricetta;
+import it.uniroma3.siw.siwfood.model.auth.User;
 import it.uniroma3.siw.siwfood.service.CuocoService;
 import it.uniroma3.siw.siwfood.service.ImagesService;
 
 @Controller
-public class CuocoController {
+public class CuocoController extends GlobalController {
 
     @Autowired
     private CuocoService cuocoService;
@@ -52,6 +54,9 @@ public class CuocoController {
 
     @GetMapping("/admin/addCuoco")
     public String getFormNewCuoco(Model model) {
+        if (!getCredential().isAdmin()) {
+            return "redirect:/error";
+        }
         model.addAttribute("cuoco", new Cuoco());
         return "formNewCuoco.html";
     }
@@ -76,6 +81,12 @@ public class CuocoController {
 
     @GetMapping("/admin/editCuoco/{id}")
     public String getFormEditCuoco(@PathVariable("id") Long id, Model model) {
+        User user = getCredential().getUser();
+        if ((!getCredential().isAdmin()
+                && cuocoService.findbyNomeCognome(user.getName(), user.getSurname()).getId() != id)
+                || cuocoService.findbyNomeCognome(user.getName(), user.getSurname()).getId() != id) {
+            return "redirect:/error";
+        }
         model.addAttribute("cuoco", this.cuocoService.findById(id));
         return "formEditCuoco.html";
     }
@@ -105,6 +116,9 @@ public class CuocoController {
 
     @GetMapping("/admin/deleteCuoco/{id}")
     public String deleteCuocoById(@PathVariable("id") Long id) {
+        if (!getCredential().isAdmin()) {
+            return "redirect:/error";
+        }
         cuocoService.deleteCuoco(id);
         return "redirect:/cuochi";
     }

@@ -13,7 +13,6 @@ import jakarta.validation.constraints.NotBlank;
 @Entity
 public class Ingrediente {
     
-    /*ATTRIBUTI INGREDIENTE*/
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,10 +25,7 @@ public class Ingrediente {
     @ManyToOne
     @JoinColumn(name = "ricetta_id")
     private Ricetta ricetta;
-    /*FINE ATTRIBUTI INGREDIENTE*/
 
-    
-    /*COSTRUTTORI*/
     public Ingrediente(){
 
     }
@@ -39,10 +35,7 @@ public class Ingrediente {
         this.quantita = quantita;
         this.ricetta = ricetta;
     }
-    /*FINE COSTRUTTORI*/
 
-
-    /*EQUALS & HASHCODE*/
     @Override
     public int hashCode() {
         return Objects.hash(nome,quantita,ricetta);
@@ -74,11 +67,7 @@ public class Ingrediente {
             return false;
         return true;
     }
-    //TODO toString()
-    /*FINE EQUALS & HASHCODE*/
 
-
-    /*GETTER & SETTER*/
     public Long getId() {
         return id;
     }
@@ -110,6 +99,5 @@ public class Ingrediente {
     public void setRicetta(Ricetta ricetta) {
         this.ricetta = ricetta;
     }
-    /*FINE GETTER & SETTER*/
  
 }

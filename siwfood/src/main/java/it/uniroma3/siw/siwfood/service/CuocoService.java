@@ -13,26 +13,28 @@ public class CuocoService {
 
     @Autowired
     private CuocoRepository cuocoRepository;
-    
 
-    public Cuoco findById(Long id){
+    public Cuoco findById(Long id) {
         return cuocoRepository.findById(id).get();
     }
 
-    public Iterable<Cuoco> findAll(){
+    public Iterable<Cuoco> findAll() {
         return cuocoRepository.findAll();
     }
 
-    public Iterable<Cuoco> findByNome(String nome){
+    public Iterable<Cuoco> findByNome(String nome) {
         return cuocoRepository.findByNomeOrderByCognomeAsc(nome);
     }
 
-    public Cuoco saveCuoco (Cuoco cuoco){
+    public Cuoco findbyNomeCognome(String nome, String cognome) {
+        return cuocoRepository.findByNomeAndCognome(nome, cognome);
+    }
+
+    public Cuoco saveCuoco(Cuoco cuoco) {
         return cuocoRepository.save(cuoco);
     }
 
-
-    public void deleteCuoco (Long id){
+    public void deleteCuoco(Long id) {
         cuocoRepository.deleteById(id);
     }
 

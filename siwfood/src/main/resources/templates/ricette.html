@@ -3,24 +3,28 @@
 <head>
     <title>Tutte le Ricette</title>
 </head>
+
 <body>
     <h1>Lista delle Ricette</h1>
-    
+
     <div>
         <ul>
             <li th:each="ricetta : ${ricette}">
-                <a th:href="@{/ricette/{id}(id=${ricetta.id})}" th:text="${ricetta.nome}">Nome Ricetta</a> - 
-                <span th:text="'Proposta da: ' + ${ricetta.cuoco.nome} + ' ' + ${ricetta.cuoco.cognome}">Nome Cuoco</span>
+                <a th:href="@{/ricette/{id}(id=${ricetta.id})}" th:text="${ricetta.nome}">Nome Ricetta</a> -
+                <span th:text="'Proposta da: '">Nome Cuoco</span>
+                <a th:href="@{/cuochi/{id}(id=${ricetta.cuoco.id})}"
+                    th:text="${ricetta.cuoco.nome} + ' ' + ${ricetta.cuoco.cognome}"></a>
             </li>
         </ul>
     </div>
-    
+
     <div>
         <a th:href="@{/ricette/search}">Vai alla pagina di ricerca delle ricette</a>
     </div>
-    
+
     <div>
         <a th:href="@{/}">Torna alla Home</a>
     </div>
 </body>
+
 </html>

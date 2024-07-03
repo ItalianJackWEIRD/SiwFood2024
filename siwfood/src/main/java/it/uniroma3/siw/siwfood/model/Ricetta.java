@@ -19,12 +19,10 @@ import jakarta.validation.constraints.NotBlank;
 @Entity
 public class Ricetta {
 
-    /* ATTRIBUTI */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
     private String nome;
 
     private String descrizione;
@@ -38,11 +36,14 @@ public class Ricetta {
     @ManyToOne
     @JoinColumn(name = "cuoco_id")
     private Cuoco cuoco;
-    /* FINE ATTRIBUTI */
 
-    /* COSTRUTTORI */
     public Ricetta() {
 
+    }
+
+    public Ricetta(String nome, String descrizione) {
+        this.nome = nome;
+        this.descrizione = descrizione;
     }
 
     public Ricetta(String nome, String descr, List<Images> immagini, List<Ingrediente> ingr, Cuoco cuoco) {
@@ -52,9 +53,7 @@ public class Ricetta {
         this.ingredienti = ingr;
         this.cuoco = cuoco;
     }
-    /* FINE COSTRUTTORI */
 
-    /* EQUALS & HASHCODE */
     @Override
     public int hashCode() {
         return Objects.hash(descrizione, ingredienti, cuoco);
@@ -86,9 +85,7 @@ public class Ricetta {
             return false;
         return true;
     }
-    /* FINE EQUALS & HASHCODE */
 
-    /* METODI PER LE IMMAGINI */
     public Images getFirstImages() {
         return this.immagini.get(0);
     }
@@ -100,9 +97,11 @@ public class Ricetta {
             return null;
         }
     }
-    /* METODI PER LE IMMAGINI */
 
-    /* GETTER & ListTER */
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }
@@ -113,6 +112,14 @@ public class Ricetta {
 
     public String getNome() {
         return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setDescrizione(String descrizione) {
+        this.descrizione = descrizione;
     }
 
     public void ListNome(String titolo) {
@@ -135,6 +142,10 @@ public class Ricetta {
         this.ingredienti = ingredienti;
     }
 
+    public void setCuoco(Cuoco cuoco) {
+        this.cuoco = cuoco;
+    }
+
     public Cuoco getCuoco() {
         return cuoco;
     }
@@ -150,6 +161,5 @@ public class Ricetta {
     public void ListDescrizione(String descrizione) {
         this.descrizione = descrizione;
     }
-    /* FINE GETTER & ListTER */
 
 }

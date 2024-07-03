@@ -21,7 +21,6 @@ import jakarta.validation.constraints.PastOrPresent;
 @Entity
 public class Cuoco {
 
-    /* ATTRIBUTI CUOCO */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -40,9 +39,9 @@ public class Cuoco {
 
     @OneToMany(mappedBy = "cuoco", cascade = CascadeType.ALL)
     private List<Ricetta> ricette;
-    /* FINE ATTRIBUTI */
 
-    /* COSTRUTTORI */
+    
+ 
     public Cuoco() {
 
     }

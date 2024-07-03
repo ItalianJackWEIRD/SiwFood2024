@@ -1,10 +1,12 @@
 <!DOCTYPE html>
+
 <head>
     <title>New Ricetta</title>
 </head>
+
 <body>
     <h1>New Ricetta</h1>
-    <form th:action="@{/admin/addRicetta/{cuoco_id}(cuoco_id=${cuoco.id})}" th:object="${ricetta}" method="post">
+    <form th:action="@{/admin/addRicetta/{cuoco_id}(cuoco_id=${cuoco.id})}" method="POST" th:object="${ricetta}">
         <div>
             <label for="nome">Nome:</label>
             <input type="text" id="nome" th:field="*{nome}" />
@@ -13,10 +15,11 @@
             <label for="descrizione">Descrizione:</label>
             <input type="text" id="descrizione" th:field="*{descrizione}" />
         </div>
-        
+
         <div>
             <button type="submit">Save</button>
         </div>
     </form>
 </body>
+
 </html>

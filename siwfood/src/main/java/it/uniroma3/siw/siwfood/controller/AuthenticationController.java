@@ -56,7 +56,7 @@ public class AuthenticationController {
     public String defaultAfterLogin(Model model) {
 
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Optional<Credential> credentials = credentialService.getCredentialByUsername(userDetails.getUsername());
+        Credential credentials = credentialService.getCredentialByUsername(userDetails.getUsername());
 
         return "index.html";
     }

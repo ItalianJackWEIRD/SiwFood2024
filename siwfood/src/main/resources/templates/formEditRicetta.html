@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FORM PER LA MODIFICA DI UNA RICETTA</title>
+    <link rel="stylesheet" href="/css/styles.css" />
 </head>
 
 <body>
@@ -16,73 +19,49 @@
         <h3>Ingredienti</h3>
         <ul>
             <li th:each="ingrediente : ${ricetta.ingredienti}">
-                <span th:text="${ingrediente.nome}">Nome Ingrediente</span>:
+                <span th:text="${ingrediente.nome}">Nome Ingrediente: </span>
                 <span th:text="${ingrediente.quantita}">Quantità Ingrediente</span>
+                <a th:href="@{/admin/eliminaIngrediente/{id}(id=${ingrediente.id})}">Elimina</button>
             </li>
         </ul>
     </div>
 
-    <form action="#" th:action="@{/ricette/update/{id}(id=${ricetta.id})}" th:object="${ingredienti}" method="post">
-
+    <h1>Aggiorna Ricetta</h1>
+    <form th:action="@{/admin/editRicetta/{id}(id=${ricetta.id})}" enctype="multipart/form-data" method="post"
+        th:object="${ricetta}">
         <div>
             <label for="nome">Nome:</label>
-            <input type="text" id="nome" th:field="*{nome}">
+            <input type="text" id="nome" th:field="*{nome}" required>
         </div>
-
         <div>
             <label for="descrizione">Descrizione:</label>
-            <input type="text" id="descrizione" th:field="*{descrizione}">
+            <input type="text" id="descrizione" th:field="*{descrizione}" required>
         </div>
-
-        <div id="ingredienti">
-            <h3>Aggiungi Nuovi Ingredienti</h3>
-            <div>
-                <label for="nuovoIngredienteNome">Nome Ingrediente:</label>
-                <input type="text" id="nuovoIngredienteNome" name="nuovoIngredienteNome" placeholder="Nome Ingrediente">
-            </div>
-            <div>
-                <label for="nuovoIngredienteQuantita">Quantità Ingrediente:</label>
-                <input type="text" id="nuovoIngredienteQuantita" name="nuovoIngredienteQuantita"
-                    placeholder="Quantità Ingrediente">
-            </div>
-            <button type="button" onclick="aggiungiIngrediente()">Aggiungi Ingrediente</button>
-        </div>
-
-        <script>
-            function aggiungiIngrediente() {
-                var nome = document.getElementById('nuovoIngredienteNome').value;
-                var quantita = document.getElementById('nuovoIngredienteQuantita').value;
-
-                if (nome && quantita) {
-                    var lista = document.createElement('li');
-                    lista.innerText = nome + ": " + quantita;
-
-                    document.querySelector('ul').appendChild(lista);
-
-                    var inputNome = document.createElement('input');
-                    inputNome.type = 'hidden';
-                    inputNome.name = 'ingredienti[][nome]';
-                    inputNome.value = nome;
-
-                    var inputQuantita = document.createElement('input');
-                    inputQuantita.type = 'hidden';
-                    inputQuantita.name = 'ingredienti[][quantita]';
-                    inputQuantita.value = quantita;
-
-                    document.querySelector('form').appendChild(inputNome);
-                    document.querySelector('form').appendChild(inputQuantita);
-
-                    document.getElementById('nuovoIngredienteNome').value = '';
-                    document.getElementById('nuovoIngredienteQuantita').value = '';
-                }
-            }
-        </script>
 
         <div>
-            <button type="submit">FINE</button>
+            <label for="immagine">Immagine:</label>
+            <input type="file" id="immagine" name="immagine" accept="image/*" required>
         </div>
-
+        <button type="submit">Aggiorna</button>
     </form>
+
+    <h1>Aggiungi Ingrediente</h1>
+    <form th:action="@{/admin/aggiungiIngrediente/{id}(id=${ricetta.id})}" enctype="multipart/form-data" method="post"
+        th:object="${nuovoIngrediente}">
+        <div>
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" th:field="*{nome}" required>
+        </div>
+        <div>
+            <label for="Quantità">Quantità:</label>
+            <input type="number" id="Quantità" th:field="*{quantita}" required>
+        </div>
+        <button type="submit">Aggiungi</button>
+    </form>
+
+    <div>
+        <a th:href="@{/ricette/{id}(id=${ricetta.id})}">torna ai dettagli della ricetta</a>
+    </div>
 
 </body>
 

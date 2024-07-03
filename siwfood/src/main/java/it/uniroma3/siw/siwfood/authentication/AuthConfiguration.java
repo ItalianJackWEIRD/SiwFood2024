@@ -62,13 +62,14 @@ public class AuthConfiguration {
                                                                 "/ricetta/**",
                                                                 "/cuochi/**")
                                                 .permitAll()
-                                                // solo gli utenti autenticati con ruolo HOST possono accedere a risorse
+                                                // solo gli utenti autenticati con ruolo ADMIN possono accedere a
+                                                // risorse
                                                 // con
                                                 // path /formNewStruttura
-                                                .requestMatchers(HttpMethod.GET, "/formNewStruttura")
-                                                .hasAnyAuthority("HOST")
-                                                .requestMatchers(HttpMethod.POST, "/formNewStruttura")
-                                                .hasAnyAuthority("HOST")
+                                                .requestMatchers(HttpMethod.GET, "/admin/**")
+                                                .hasAnyAuthority("LOG", "ADMIN")
+                                                .requestMatchers(HttpMethod.POST, "/admin/**")
+                                                .hasAnyAuthority("ADMIN", "LOG")
                                                 // tutti gli utenti autenticati possono accere alle pag
                                                 .anyRequest().authenticated())
 

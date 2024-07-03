@@ -22,7 +22,7 @@ public class GlobalController {
     @ModelAttribute("userDetails")
     public UserDetails getUser() {
         UserDetails user = null;
-        
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -31,13 +31,13 @@ public class GlobalController {
     }
 
     @ModelAttribute("credenziali")
-    public Optional<Credential> getCredential() {
+    public Credential getCredential() {
         UserDetails user = null;
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            Optional<Credential> credentials = credentialsService.getCredentialByUsername(user.getUsername());
+            Credential credentials = credentialsService.getCredentialByUsername(user.getUsername());
             return credentials;
         }
         return null;

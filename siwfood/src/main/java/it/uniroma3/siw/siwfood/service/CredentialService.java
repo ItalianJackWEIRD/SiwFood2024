@@ -22,7 +22,7 @@ public class CredentialService {
         return this.credentialRepository.findById(id).get();
     }
 
-    public Optional<Credential> getCredentialByUsername(String username) {
+    public Credential getCredentialByUsername(String username) {
         return this.credentialRepository.findByUsername(username);
     }
 
@@ -31,7 +31,7 @@ public class CredentialService {
         this.credentialRepository.save(credenziali);
     }
 
-    public void deleteCredentials(Credential credenziali){
+    public void deleteCredentials(Credential credenziali) {
         this.credentialRepository.delete(credenziali);
     }
 
