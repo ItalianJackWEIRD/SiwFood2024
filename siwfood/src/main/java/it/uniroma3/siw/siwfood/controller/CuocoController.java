@@ -82,9 +82,8 @@ public class CuocoController extends GlobalController {
     @GetMapping("/admin/editCuoco/{id}")
     public String getFormEditCuoco(@PathVariable("id") Long id, Model model) {
         User user = getCredential().getUser();
-        if ((!getCredential().isAdmin()
-                && cuocoService.findbyNomeCognome(user.getName(), user.getSurname()).getId() != id)
-                || cuocoService.findbyNomeCognome(user.getName(), user.getSurname()).getId() != id) {
+        if (!getCredential().isAdmin()
+                && cuocoService.findbyNomeCognome(user.getName(), user.getSurname()).getId() != id) {
             return "redirect:/error";
         }
         model.addAttribute("cuoco", this.cuocoService.findById(id));
