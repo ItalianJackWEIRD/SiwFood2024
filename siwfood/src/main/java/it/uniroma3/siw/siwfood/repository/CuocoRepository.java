@@ -4,7 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import it.uniroma3.siw.siwfood.model.Cuoco;
-import java.time.LocalDate;
 
 @Repository
 public interface CuocoRepository extends CrudRepository<Cuoco, Long> {
