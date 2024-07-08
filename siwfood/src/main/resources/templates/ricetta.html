@@ -1,43 +1,62 @@
 <!DOCTYPE html>
+<html>
 
 <head>
+    <meta charset="UTF-8">
     <title>Dettagli Ricetta</title>
+    <link rel="stylesheet" href="/css/stileRicetta.css" />
 </head>
 
 <body>
-    <h1>Dettagli della Ricetta</h1>
+    <nav class="navbar">
+		<a href="/" class="logo">SiwFood</a>
+		<ul class="nav-links">
+			<li>
+				<a class="nav-link" href="/cuochi">Cuochi</a>
+			</li>
+			<li>
+				<a class="nav-link" href="/ricette">Ricette</a>
+			</li>
+			<li class="active" th:unless="${userDetails}">
+				<a class="nav-link" href="/register">Registrati</a>
+			</li>
+			<li class="ctn" th:unless="${userDetails}">
+				<a class="nav-link" href="/login">Login</a>
+			</li>
+			<li class="ctn" th:if="${userDetails}">
+				<a class="nav-link" href="/logout">Logout</a>
+			</li>
+		</ul>
+	</nav>
 
-    <div>
-        <h2 th:text="${ricetta.nome}">Nome della Ricetta</h2>
-        <p th:text="${ricetta.descrizione}">Descrizione della Ricetta</p>
-    </div>
-
-    <div>
-        <h3>Ingredienti</h3>
-        <ul>
-            <li th:each="ingrediente : ${ricetta.ingredienti}">
-                <span th:text="${ingrediente.nome}">Nome Ingrediente</span>:
-                <span th:text="${ingrediente.quantita}">Quantità Ingrediente</span>
-            </li>
-        </ul>
-    </div>
-
-    <div>
-        <a th:href="@{/admin/editRicetta/{id}(id=${ricetta.id})}">Modifica la Ricetta</a>
-    </div>
-
-    <div>
-        <a th:href="@{/admin/deleteRicetta/{id}(id=${ricetta.id})}">Elimina la Ricetta</a>
-    </div>
-
-    <div>
-        <h3>Proposta da</h3>
-        <a th:href="@{/cuochi/{id}(id=${ricetta.cuoco.id})}"
-            th:text="${ricetta.cuoco.nome} + ' ' + ${ricetta.cuoco.cognome}">Nome Cuoco</a>
-    </div>
-
-    <div>
-        <a th:href="@{/ricette}">Torna alla lista delle Ricette</a>
+    <div class="container small-container">
+        <h1>Dettagli della Ricetta</h1>
+        <div class="ricetta-info">
+            <h2 class="ricetta-nome" th:text="${ricetta.nome}">Nome della Ricetta</h2>
+            <p class="ricetta-descrizione" th:text="${ricetta.descrizione}">Descrizione della Ricetta</p>
+        </div>
+        <div class="ingredienti-container">
+            <h3>Ingredienti:</h3>
+            <ul class="ingredienti-list">
+                <li class="ingrediente-item" th:each="ingrediente : ${ricetta.ingredienti}">
+                    <span class="ingrediente-nome" th:text="${ingrediente.nome}">Nome Ingrediente</span>:
+                    <span class="ingrediente-quantita" th:text="${ingrediente.quantita}">Quantità Ingrediente</span>
+                </li>
+            </ul>
+        </div>
+        <div class="link-container">
+            <a class="edit" th:href="@{/admin/editRicetta/{id}(id=${ricetta.id})}">Modifica la Ricetta</a>
+        </div>
+        <div class="link-container">
+            <a class="edit" th:href="@{/admin/deleteRicetta/{id}(id=${ricetta.id})}">Elimina la Ricetta</a>
+        </div>
+        <div class="link-container">
+            <h3>Proposta da:</h3>
+            <a class="cuoco" th:href="@{/cuochi/{id}(id=${ricetta.cuoco.id})}" th:text="${ricetta.cuoco.nome} + ' ' + ${ricetta.cuoco.cognome}">Nome Cuoco</a>
+        </div>
+        <div class="link-container">
+            <a class="backRicette" th:href="@{/ricette}">Torna alla lista delle Ricette</a>
+        </div>
     </div>
 </body>
 

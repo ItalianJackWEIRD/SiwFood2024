@@ -1,46 +1,79 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrati</title>
+    <link rel="stylesheet" href="/css/styleRegister.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
 <body>
 
-    <div>
+    <div class="wrapper">
 
         <form th:action="@{/register}" method="POST">
-            <div>
-                <label th:text="'Username'"></label>
-                <input type="text" required th:field="${credentials.username}">
-                <span th:if="${#fields.hasErrors('credentials.username')}" th:errors="${credentials.username}"
-                    th:style="'color:red'"></span>
-            </div>
-            <div>
-                <label th:text="'Password'"></label>
-                <input type="password" required th:field="${credentials.password}">
-                <span th:if="${#fields.hasErrors('credentials.password')}" th:errors="${credentials.password}"
-                    th:style="'color:red'"></span>
-            </div>
-            <div>
-                <label th:text="'Nome'"></label>
-                <input type="text" required th:field="${user.name}">
-                <span th:if="${#fields.hasErrors('user.name')}" th:errors="${user.name}" th:style="'color:red'"></span>
-            </div>
-            <div>
-                <label th:text="'Cognome'"></label>
-                <input type="text" required th:field="${user.surname}">
-                <span th:if="${#fields.hasErrors('user.surname')}" th:errors="${user.surname}"
-                    th:style="'color:red'"></span>
-            </div>
-            <div>
-                <button type="submit" th:text="'Registrati'"></button>
-            </div>
-        </form>
+            <h1>Registrati</h1>
 
+            <div class="input-box">
+                <div class="input-field">
+                    <input type="text" placeholder="Username" required th:field="${credentials.username}">
+                    <i class='bx bxs-user'></i>
+                    <span th:if="${#fields.hasErrors('credentials.username')}" th:errors="${credentials.username}"
+                        th:style="'color:red'"></span>
+                </div>
+
+                <div class="input-field">
+                    <input type="password" id="password" placeholder="Password" required
+                        th:field="${credentials.password}">
+                    <i class='bx bxs-lock-alt' id="icon"></i>
+                    <span th:if="${#fields.hasErrors('credentials.password')}" th:errors="${credentials.password}"
+                        th:style="'color:red'"></span>
+                </div>
+            </div>
+
+            <div class="input-box">
+                <div class="input-field">
+                    <input type="text" placeholder="Nome" required th:field="${user.name}">
+                    <i class='bx bxs-user-circle'></i>
+                    <span th:if="${#fields.hasErrors('user.name')}" th:errors="${user.name}"
+                        th:style="'color:red'"></span>
+                </div>
+                <div class="input-field">
+                    <input type="text" placeholder="Cognome" required th:field="${user.surname}">
+                    <i class='bx bxs-user-circle'></i>
+                    <span th:if="${#fields.hasErrors('user.surname')}" th:errors="${user.surname}"
+                        th:style="'color:red'"></span>
+                </div>
+            </div>
+
+            <label><input type="checkbox" required>Dichiaro di accettare le policy di questo sito e acconsento al
+                trattamento dei
+                miei dati sensibili</label>
+
+            <button type="submit" class="btn">Registrati</button>
+
+        </form>
     </div>
 
+
+    <script>
+        let icon = document.getElementById("icon");
+        let password = document.getElementById("password");
+
+        icon.onclick = function () {
+            if (password.type == "password") {
+                password.type = "text";
+                icon.className = "bx bx-lock-open-alt";
+            }
+            else {
+                password.type = "password";
+                icon.className = "bx bxs-lock-alt"
+            }
+        }
+    </script>
 </body>
 
 </html>

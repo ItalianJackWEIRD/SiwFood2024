@@ -20,17 +20,14 @@
 			<li>
 				<a class="nav-link" href="/ricette">Ricette</a>
 			</li>
-			<li>
-				<a class="nav-link" href="/formSearchStrutture">Cerca Strutture nella tua città</a>
-			</li>
-			<li th:if="${userDetails}">
-				<a class="nav-link" href="/formNewStruttura">Inserisci una struttura</a>
-			</li>
 			<li class="active" th:unless="${userDetails}">
 				<a class="nav-link" href="/register">Registrati</a>
 			</li>
 			<li class="ctn" th:unless="${userDetails}">
 				<a class="nav-link" href="/login">Login</a>
+			</li>
+			<li class="ctn" th:if="${userDetails}">
+				<a class="nav-link" href="/logout">Logout</a>
 			</li>
 		</ul>
 	</nav>

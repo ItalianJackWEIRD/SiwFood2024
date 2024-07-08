@@ -62,9 +62,8 @@ public class RicettaController extends GlobalController {
     @GetMapping("/admin/addRicetta/{cuoco_id}")
     public String getFormNewRicetta(@PathVariable("cuoco_id") Long id, Model model) {
         User user = getCredential().getUser();
-        if ((!getCredential().isAdmin()
-                && cuocoService.findbyNomeCognome(user.getName(), user.getSurname()).getId() != id)
-                || cuocoService.findbyNomeCognome(user.getName(), user.getSurname()).getId() != id) {
+        if (!getCredential().isAdmin()
+                && cuocoService.findbyNomeCognome(user.getName(), user.getSurname()).getId() != id) {
             return "redirect:/error";
         }
         model.addAttribute("cuoco", this.cuocoService.findById(id));
@@ -83,10 +82,8 @@ public class RicettaController extends GlobalController {
     public String getFormEditRicetta(@PathVariable("id") Long id, Model model) {
         Ricetta ricetta = this.ricettaService.findById(id);
         User user = getCredential().getUser();
-        if ((!getCredential().isAdmin()
+        if (!getCredential().isAdmin()
                 && cuocoService.findbyNomeCognome(user.getName(), user.getSurname()).getId() != ricetta.getCuoco()
-                        .getId())
-                || cuocoService.findbyNomeCognome(user.getName(), user.getSurname()).getId() != ricetta.getCuoco()
                         .getId()) {
             return "redirect:/error";
         }
@@ -106,7 +103,11 @@ public class RicettaController extends GlobalController {
 
     @GetMapping("/admin/deleteRicetta/{id}")
     public String deleteRicetteById(@PathVariable("id") Long id) {
-        if (!getCredential().isAdmin())
+        Ricetta ricetta = this.ricettaService.findById(id);
+        User user = getCredential().getUser();
+        if (!getCredential().isAdmin()
+                && cuocoService.findbyNomeCognome(user.getName(), user.getSurname()).getId() != ricetta.getCuoco()
+                        .getId())
             return "redirect:/error";
         this.ricettaService.deleteRicetta(id);
         return "redirect:/ricette";

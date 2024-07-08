@@ -1,29 +1,46 @@
 <!DOCTYPE html>
+<html>
 
 <head>
+    <meta charset="UTF-8">
     <title>Tutte le Ricette</title>
+    <link rel="stylesheet" href="/css/stileRicette.css" />
 </head>
 
 <body>
-    <h1>Lista delle Ricette</h1>
+    <nav class="navbar">
+		<a href="/" class="logo">SiwFood</a>
+		<ul class="nav-links">
+			<li>
+				<a class="nav-link" href="/cuochi">Cuochi</a>
+			</li>
+			<li>
+				<a class="nav-link" href="/ricette">Ricette</a>
+			</li>
+			<li class="active" th:unless="${userDetails}">
+				<a class="nav-link" href="/register">Registrati</a>
+			</li>
+			<li class="ctn" th:unless="${userDetails}">
+				<a class="nav-link" href="/login">Login</a>
+			</li>
+			<li class="ctn" th:if="${userDetails}">
+				<a class="nav-link" href="/logout">Logout</a>
+			</li>
+		</ul>
+	</nav>
 
-    <div>
-        <ul>
-            <li th:each="ricetta : ${ricette}">
-                <a th:href="@{/ricette/{id}(id=${ricetta.id})}" th:text="${ricetta.nome}">Nome Ricetta</a> -
-                <span th:text="'Proposta da: '">Nome Cuoco</span>
-                <a th:href="@{/cuochi/{id}(id=${ricetta.cuoco.id})}"
-                    th:text="${ricetta.cuoco.nome} + ' ' + ${ricetta.cuoco.cognome}"></a>
+    <div class="container">
+        <h1>Lista delle Ricette</h1>
+        <ul class="ricette-list">
+            <li class="ricetta-item" th:each="ricetta : ${ricette}">
+                <a class="ricetta-link" th:href="@{/ricette/{id}(id=${ricetta.id})}" th:text="${ricetta.nome}">Nome Ricetta</a> -
+                <span class="ricetta-cuoco" th:text="'Proposta da: '">Nome Cuoco</span>
+                <a class="cuoco-link" th:href="@{/cuochi/{id}(id=${ricetta.cuoco.id})}" th:text="${ricetta.cuoco.nome} + ' ' + ${ricetta.cuoco.cognome}"></a>
             </li>
         </ul>
-    </div>
-
-    <div>
-        <a th:href="@{/ricette/search}">Vai alla pagina di ricerca delle ricette</a>
-    </div>
-
-    <div>
-        <a th:href="@{/}">Torna alla Home</a>
+        <div class="link-container">
+            <a class="nav-link" href="/ricette/search">Vai alla pagina di ricerca delle ricette</a>
+        </div>
     </div>
 </body>
 

@@ -1,44 +1,65 @@
 <!DOCTYPE html>
 
 <head>
+    <meta charset="UTF-8">
     <title>Dettagli Cuoco</title>
+    <link rel="stylesheet" href="/css/stileCuoco.css" />
 </head>
 
 <body>
-    <h1>Dettagli del Cuoco</h1>
-
-    <div>
-        <img th:if="${cuoco.hasImages() == true}"
-            th:src="'data:image/jpeg;base64,' + ${cuoco.getFirstImmagine().getBase64()}" width="30%" />
-    </div>
-
-    <div>
-        <h2 th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}"></h2>
-        <p th:text="'Data di Nascita: ' + ${cuoco.dataNascita}"></p>
-    </div>
-
-    <div>
-        <h3>Ricette Proposte</h3>
-        <div th:if="${#lists.isEmpty(cuoco.ricette)}">
-            <p>Non ci sono attualmente ricette per questo cuoco</p>
-        </div>
-        <ul th:unless="${#lists.isEmpty(cuoco.ricette)}">
-            <li th:each="ricetta : ${cuoco.ricette}">
-                <a th:href="@{/ricette/{id}(id=${ricetta.id})}" th:text="${ricetta.nome}"></a>
+    <nav class="navbar">
+        <a href="/" class="logo">SiwFood</a>
+        <ul class="nav-links">
+            <li>
+                <a class="nav-link" href="/cuochi">Cuochi</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/ricette">Ricette</a>
+            </li>
+            <li class="active" th:unless="${userDetails}">
+                <a class="nav-link" href="/register">Registrati</a>
+            </li>
+            <li class="ctn" th:unless="${userDetails}">
+                <a class="nav-link" href="/login">Login</a>
+            </li>
+            <li class="ctn" th:if="${userDetails}">
+                <a class="nav-link" href="/logout">Logout</a>
             </li>
         </ul>
-    </div>
-    <div>
-        <a th:href="@{/admin/editCuoco/{id}(id=${cuoco.id})}">edita</a>
-    </div>
-    <div>
-        <a th:href="@{/admin/deleteCuoco/{id}(id=${cuoco.id})}">elimina</a>
-    </div>
-    <div>
-        <a th:href="@{/admin/addRicetta/{cuoco_id}(cuoco_id=${cuoco.id})}">aggiungi ricetta</a>
-    </div>
-    <div>
-        <a th:href="@{/cuochi}">torna alla lista dei cuochi</a>
+    </nav>
+
+    <div class="container small-container">
+        <h1>Dettagli del Cuoco</h1>
+        <div class="cuoco-info">
+            <div>
+                <img class="cuoco-img" th:if="${cuoco.hasImages() == true}"
+                    th:src="'data:image/jpeg;base64,' + ${cuoco.getFirstImmagine().getBase64()}" width="30%" />
+            </div>
+            <div>
+                <h2 class="cuoco-nome" th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}"></h2>
+                <p class="cuoco-data" th:text="'Data di Nascita: ' + ${cuoco.dataNascita}"></p>
+            </div>
+        </div>
+        <div class="ricette-container">
+            <h3>Ricette Proposte:</h3>
+            <div th:if="${#lists.isEmpty(cuoco.ricette)}">
+                <p>Non ci sono attualmente ricette per questo cuoco</p>
+            </div>
+            <ul class="ricette-list" th:unless="${#lists.isEmpty(cuoco.ricette)}">
+                <li class="ricetta-item" th:each="ricetta : ${cuoco.ricette}">
+                    <a class="ricetta-link" th:href="@{/ricette/{id}(id=${ricetta.id})}" th:text="${ricetta.nome}"></a>
+                </li>
+            </ul>
+        </div>
+        <div class="link-container">
+            <a class="nav-link" th:href="@{/admin/editCuoco/{id}(id=${cuoco.id})}">Edita</a>
+        </div>
+        <div class="link-container">
+            <a class="nav-link" th:href="@{/admin/deleteCuoco/{id}(id=${cuoco.id})}">Elimina</a>
+        </div>
+        <div class="link-container-ricetta">
+            <a class="nav-link" th:href="@{/admin/addRicetta/{cuoco_id}(cuoco_id=${cuoco.id})}">Aggiungi Ricetta</a>
+        </div>
     </div>
 </body>
 
