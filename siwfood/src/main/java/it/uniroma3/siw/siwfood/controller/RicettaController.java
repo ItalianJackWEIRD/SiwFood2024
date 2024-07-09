@@ -54,8 +54,8 @@ public class RicettaController extends GlobalController {
     }
 
     @PostMapping("/ricette/byIngrediente")
-    public String postRicetteByIngrediente(@RequestParam String ingr, Model model) {
-        model.addAttribute("ricette", this.ricettaService.findByIngredienteNome(ingr));
+    public String postRicetteByIngrediente(@RequestParam String nomeIngrediente, Model model) {
+        model.addAttribute("ricette", this.ricettaService.findByIngredienteNome(nomeIngrediente));
         return "ricette.html";
     }
 

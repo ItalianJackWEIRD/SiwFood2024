@@ -1,31 +1,61 @@
 <!DOCTYPE html>
+<html>
 
 <head>
+    <meta charset="UTF-8">
     <title>Nuovo Cuoco</title>
+    <link rel="stylesheet" href="/css/stileFormNewCuoco.css" />
 </head>
+
 <body>
-    <h1>Crea un Nuovo Cuoco</h1>
-    <form action="/admin/addCuoco" method="post" enctype="multipart/form-data" th:object="${cuoco}">
+    <nav class="navbar">
+        <a href="/" class="logo">SiwFood</a>
+        <ul class="nav-links">
+            <li>
+                <a class="nav-link" href="/cuochi">Cuochi</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/ricette">Ricette</a>
+            </li>
+            <li class="active" th:unless="${userDetails}">
+                <a class="nav-link" href="/register">Registrati</a>
+            </li>
+            <li class="ctn" th:unless="${userDetails}">
+                <a class="nav-link" href="/login">Login</a>
+            </li>
+            <li class="ctn" th:if="${userDetails}">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="container small-container">
+        <h1>Crea un Nuovo Cuoco</h1>
+        <form action="/admin/addCuoco" method="post" enctype="multipart/form-data" th:object="${cuoco}">
+            <div>
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" th:field="*{nome}" required>
+            </div>
+            <div>
+                <label for="cognome">Cognome:</label>
+                <input type="text" id="cognome" th:field="*{cognome}" required>
+            </div>
+            <div>
+                <label for="dataNascita">Data di Nascita:</label>
+                <input type="date" id="dataNascita" th:field="*{dataNascita}" required>
+            </div>
+            <div>
+                <label for="immagine">Immagine:</label>
+                <input type="file" id="immagine" name="immagine" accept="image/*" required>
+            </div>
+            <div>
+                <button type="submit">Salva</button>
+            </div>
+        </form>
         <div>
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" th:field="*{nome}" required>
+            <a th:href="@{/cuochi}">Torna alla lista dei cuochi</a>
         </div>
-        <div>
-            <label for="cognome">Cognome:</label>
-            <input type="text" id="cognome" th:field="*{cognome}" required>
-        </div>
-        <div>
-            <label for="dataNascita">Data di Nascita:</label>
-            <input type="date" id="dataNascita" th:field="*{dataNascita}" required>
-        </div>
-        <div>
-            <label for="immagine">Immagine:</label>
-            <input type="file" id="immagine" name="immagine" accept="image/*" required>
-        </div>
-        <div>
-            <button type="submit">Salva</button>
-        </div>
-    </form>
-    <a th:href="@{/cuochi}">Torna alla lista dei cuochi</a>
+    </div>
 </body>
+
 </html>

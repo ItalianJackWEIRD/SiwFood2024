@@ -1,33 +1,50 @@
 <!DOCTYPE html>
+<html>
 
 <head>
+    <meta charset="UTF-8">
     <title>Cerca Ricette</title>
+    <link rel="stylesheet" href="/css/stileRicercaRicette.css" />
 </head>
 
 <body>
-    <h1>Ricerca Ricetta in base al nome</h1>
-    <form th:action="@{/ricette/byNome}" method="post">
-        <div>
-            <label>Nome Ricetta:</label>
-            <input type="text" name="nome" />
-        </div>
-        <div>
-            <button type="submit">Cerca per Nome</button>
-        </div>
-    </form>
+    <nav class="navbar">
+        <a href="/" class="logo">SiwFood</a>
+        <ul class="nav-links">
+            <li>
+                <a class="nav-link" href="/cuochi">Cuochi</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/ricette">Ricette</a>
+            </li>
+            <li class="active" th:unless="${userDetails}">
+                <a class="nav-link" href="/register">Registrati</a>
+            </li>
+            <li class="ctn" th:unless="${userDetails}">
+                <a class="nav-link" href="/login">Login</a>
+            </li>
+            <li class="ctn" th:if="${userDetails}">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+        </ul>
+    </nav>
 
-    <h1>Ricerca Ricetta in base al nome di un ingrediente</h1>
-    <form th:action="@{/ricette/byIngrediente}" method="post">
-        <div>
-            <label>Nome Ingrediente:</label>
-            <input type="text" name="nomeIngrediente" />
-        </div>
-        <div>
-            <button type="submit">Cerca per Ingrediente</button>
-        </div>
-    </form>
+    <div class="container small-container">
+        <h1>Ricerca Ricetta in base al nome</h1>
+        <form th:action="@{/ricette/byNome}" method="post">
+            <div>
+                <label>Nome Ricetta:</label>
+                <input type="text" name="nome" />
+            </div>
+            <div>
+                <button type="submit">Cerca per Nome</button>
+            </div>
+        </form>
 
-    <a th:href="@{/ricette}">Torna alla lista delle ricette</a>
-
+        <div>
+            <a th:href="@{/ricette}">Torna alla lista delle ricette</a>
+        </div>
+    </div>
 </body>
+
 </html>

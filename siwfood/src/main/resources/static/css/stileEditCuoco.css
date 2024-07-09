@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: wheat;
+}
+
+ul {
+    list-style: none;
+}
+
+.active {
+    color: wheat;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+body,
+html {
+    overflow-x: hidden;
+    font-family: 'Poppins', sans-serif;
+    background: url('../images/img1.jpg');
+    background-size: cover;
+    background-position: center top;
+}
+
+.logo {
+    font-weight: bold;
+    color: antiquewhite;
+    font-size: 5vmin;
+}
+
+.navbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 20px;
+    color: whitesmoke;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    backdrop-filter: blur(30px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    color: #44d95d;
+}
+
+.nav-links li {
+    margin: 0 30px;
+    color: #44d95d;
+}
+
+.nav-links li a {
+    font-size: 3vmin;
+    color: #cbc9c9;
+    font-weight: bold;
+}
+
+.container {
+    padding: 100px 20px;
+    border: 5px solid rgba(255, 255, 255, .2);
+    backdrop-filter: blur(30px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+    max-width: 600px;
+    margin-top: 125px;
+    color: whitesmoke;
+}
+
+.small-container {
+    max-width: 600px;
+    margin-top: 125px;
+}
+
+.container h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: whitesmoke;
+}
+
+h2, h3 {
+    color: whitesmoke;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+form div {
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: whitesmoke;
+}
+
+input[type="text"],
+input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #2a6953;
+    border: none;
+    border-radius: 5px;
+    color: whitesmoke;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: whitesmoke;
+    color: #2a6953;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.699);
+}
+
+@media only screen and (max-width: 850px) {
+    .menu-btn {
+        display: block;
+    }
+
+    .navbar {
+        padding: 0;
+    }
+
+    .logo {
+        position: absolute;
+        top: 30px;
+        left: 30px;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        width: 100%;
+        height: 100vh;
+        justify-content: center;
+        background: #624684;
+        margin-top: -900px;
+        transition: all 0.5s ease;
+    }
+
+    .nav-links li {
+        margin: 30px auto;
+    }
+}

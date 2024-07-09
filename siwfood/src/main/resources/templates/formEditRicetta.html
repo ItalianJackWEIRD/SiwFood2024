@@ -1,68 +1,72 @@
 <!DOCTYPE html>
+<html lang="it">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FORM PER LA MODIFICA DI UNA RICETTA</title>
-    <link rel="stylesheet" href="/css/styles.css" />
+    <title>Modifica Ricetta</title>
+    <link rel="stylesheet" href="/css/stileEditRicetta.css" />
 </head>
 
 <body>
-    <h1>Modifica i dettagli della Ricetta</h1>
-
-    <div>
-        <h2 th:text="${ricetta.nome}">Nome della Ricetta</h2>
-        <p th:text="${ricetta.descrizione}">Descrizione della Ricetta</p>
-    </div>
-
-    <div>
-        <h3>Ingredienti</h3>
-        <ul>
-            <li th:each="ingrediente : ${ricetta.ingredienti}">
-                <span th:text="${ingrediente.nome}">Nome Ingrediente: </span>
-                <span th:text="${ingrediente.quantita}">Quantità Ingrediente</span>
-                <a th:href="@{/admin/eliminaIngrediente/{id}(id=${ingrediente.id})}">Elimina</button>
-            </li>
+    <nav class="navbar">
+        <a href="/" class="logo">SiwFood</a>
+        <ul class="nav-links">
+            <li><a class="nav-link" href="/cuochi">Cuochi</a></li>
+            <li><a class="nav-link" href="/ricette">Ricette</a></li>
+            <li class="active" th:unless="${userDetails}"><a class="nav-link" href="/register">Registrati</a></li>
+            <li class="ctn" th:unless="${userDetails}"><a class="nav-link" href="/login">Login</a></li>
+            <li class="ctn" th:if="${userDetails}"><a class="nav-link" href="/logout">Logout</a></li>
         </ul>
+    </nav>
+    <div class="container small-container">
+        <h1>Modifica i Dettagli della Ricetta</h1>
+        <div>
+            <h2 th:text="${ricetta.nome}">Nome della Ricetta</h2>
+            <p th:text="${ricetta.descrizione}">Descrizione della Ricetta</p>
+        </div>
+        <div>
+            <h3>Ingredienti</h3>
+            <ul>
+                <li th:each="ingrediente : ${ricetta.ingredienti}">
+                    <span th:text="${ingrediente.nome}">Nome Ingrediente</span>:
+                    <span th:text="${ingrediente.quantita}">Quantità Ingrediente</span>
+                    <a th:href="@{/admin/eliminaIngrediente/{id}(id=${ingrediente.id})}">Elimina</a>
+                </li>
+            </ul>
+        </div>
+        <h1>Aggiorna Ricetta</h1>
+        <form th:action="@{/admin/editRicetta/{id}(id=${ricetta.id})}" enctype="multipart/form-data" method="post" th:object="${ricetta}">
+            <div>
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" th:field="*{nome}" required>
+            </div>
+            <div>
+                <label for="descrizione">Descrizione:</label>
+                <input type="text" id="descrizione" th:field="*{descrizione}" required>
+            </div>
+            <div>
+                <label for="immagine">Immagine:</label>
+                <input type="file" id="immagine" name="immagine" accept="image/*" required>
+            </div>
+            <button type="submit">Aggiorna</button>
+        </form>
+        <h1>Aggiungi Ingrediente</h1>
+        <form th:action="@{/admin/aggiungiIngrediente/{id}(id=${ricetta.id})}" enctype="multipart/form-data" method="post" th:object="${nuovoIngrediente}">
+            <div>
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" th:field="*{nome}" required>
+            </div>
+            <div>
+                <label for="Quantità">Quantità:</label>
+                <input type="number" id="Quantità" th:field="*{quantita}" required>
+            </div>
+            <button type="submit">Aggiungi</button>
+        </form>
+        <div>
+            <a th:href="@{/ricette/{id}(id=${ricetta.id})}">Torna ai dettagli della ricetta</a>
+        </div>
     </div>
-
-    <h1>Aggiorna Ricetta</h1>
-    <form th:action="@{/admin/editRicetta/{id}(id=${ricetta.id})}" enctype="multipart/form-data" method="post"
-        th:object="${ricetta}">
-        <div>
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" th:field="*{nome}" required>
-        </div>
-        <div>
-            <label for="descrizione">Descrizione:</label>
-            <input type="text" id="descrizione" th:field="*{descrizione}" required>
-        </div>
-
-        <div>
-            <label for="immagine">Immagine:</label>
-            <input type="file" id="immagine" name="immagine" accept="image/*" required>
-        </div>
-        <button type="submit">Aggiorna</button>
-    </form>
-
-    <h1>Aggiungi Ingrediente</h1>
-    <form th:action="@{/admin/aggiungiIngrediente/{id}(id=${ricetta.id})}" enctype="multipart/form-data" method="post"
-        th:object="${nuovoIngrediente}">
-        <div>
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" th:field="*{nome}" required>
-        </div>
-        <div>
-            <label for="Quantità">Quantità:</label>
-            <input type="number" id="Quantità" th:field="*{quantita}" required>
-        </div>
-        <button type="submit">Aggiungi</button>
-    </form>
-
-    <div>
-        <a th:href="@{/ricette/{id}(id=${ricetta.id})}">torna ai dettagli della ricetta</a>
-    </div>
-
 </body>
 
 </html>
